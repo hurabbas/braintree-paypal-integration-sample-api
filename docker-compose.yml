@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: braintree_paypal_integration_postgres_container
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: braintree_paypal_integration_api
+    volumes:
+      - braintree_paypal_integration_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "50432:5432"
+
+volumes:
+  braintree_paypal_integration_postgres_data:
