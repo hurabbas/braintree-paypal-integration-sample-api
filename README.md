@@ -1,73 +1,117 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Braintree Paypal Sample Integration - API
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This project demonstrates the integration of Braintree and PayPal payment gateways using NestJS. It serves as a robust example of handling payment processing within a NestJS application, showcasing how to manage transactions, handle encryption, and interact with databases.
 
-## Description
+## Table of Contents
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Features](#features)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Environment Variables](#environment-variables)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- **Braintree Integration**: Secure and reliable payment processing using Braintree.
+- **PayPal Integration**: Handle transactions with PayPal's payment gateway.
+- **NestJS Framework**: Built with the modular and scalable NestJS framework.
+- **Prisma ORM**: Database management with Prisma ORM.
+- **Docker Support**: Easily deployable using Docker.
 
 ## Installation
 
-```bash
-$ npm install
-```
+1. **Clone the repository:**
+    ```sh
+    git clone https://github.com/your-username/your-repo-name.git
+    cd your-repo-name
+    ```
 
-## Running the app
+2. **Install dependencies:**
+    ```sh
+    npm install
+    ```
 
-```bash
-# development
-$ npm run start
+3. **Set up Prisma:**
+    ```sh
+    npx prisma migrate dev
+    npx prisma generate
+    ```
 
-# watch mode
-$ npm run start:dev
+4. **Run the application:**
+    ```sh
+    npm run start
+    ```
 
-# production mode
-$ npm run start:prod
-```
+## Configuration
 
-## Test
+1. **Environment Variables:**
+   Ensure you have the correct environment variables set up. You can find the environment configuration files in the project root (e.g., `.env.dev`, `.env.prod`, `.env.stage`, `.env.uat`).
 
-```bash
-# unit tests
-$ npm run test
+2. **Docker:**
+   Use the provided `docker-compose.yml` for running the application in a Docker container. Run the following command:
+    ```sh
+    docker-compose up --build
+    ```
 
-# e2e tests
-$ npm run test:e2e
+## Usage
 
-# test coverage
-$ npm run test:cov
-```
+After setting up and running the application, you can access the API endpoints to handle payment transactions. Use an API client like Postman to interact with the available endpoints.
 
-## Support
+## API Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Braintree
 
-## Stay in touch
+- **Initiate Transaction**
+    ```http
+    POST /braintree/transaction
+    ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Check Transaction Status**
+    ```http
+    GET /braintree/transaction/:id/status
+    ```
+
+### PayPal
+
+- **Initiate Transaction**
+    ```http
+    POST /paypal/transaction
+    ```
+
+- **Check Transaction Status**
+    ```http
+    GET /paypal/transaction/:id/status
+    ```
+
+### Encryption
+
+- **Encrypt Data**
+    ```http
+    POST /encryption/encrypt
+    ```
+
+- **Decrypt Data**
+    ```http
+    POST /encryption/decrypt
+    ```
+
+## Environment Variables
+
+- `BRAINTREE_MERCHANT_ID`: Your Braintree Merchant ID.
+- `BRAINTREE_PUBLIC_KEY`: Your Braintree Public Key.
+- `BRAINTREE_PRIVATE_KEY`: Your Braintree Private Key.
+- `PAYPAL_CLIENT_ID`: Your PayPal Client ID.
+- `PAYPAL_CLIENT_SECRET`: Your PayPal Client Secret.
+- `DATABASE_URL`: URL for your database connection.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and use a feature branch. Pull requests are warmly welcome.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License. See the LICENSE.md file for details.
