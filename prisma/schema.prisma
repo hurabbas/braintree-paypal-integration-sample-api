@@ -1,0 +1,42 @@
+// Datasource configuration for PostgreSQL database.
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Generator configuration for Prisma Client.
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ... (Your existing schema)
+
+enum Currency {
+  USD
+  EUR
+  AUD
+  THB
+  HKD
+  SGD
+}
+
+enum CardType {
+  AMEX
+  VISA
+  // ... Other card types
+}
+
+model Order {
+  id               Int      @id @default(autoincrement())
+  amount           Decimal  @db.Decimal(10, 2)
+  paymentGateway   String
+  paymentResult    Json
+  currency         Currency
+  cardType         CardType
+  cardHolderName   String
+  customerFullName String
+  cardNumber       String
+  cardExpiration   String
+  cardCcv          String
+  // ... Other order details
+}
